@@ -1,5 +1,4 @@
-# Melhorar o código do Desafio 1 - ATENÇÃO, CÓDIGO COM ERROS !
-# O SALDO NÃO ESTÁ FUNCIONANDO - ACUMULADOR ERRADO! 
+# Melhorar o código do Desafio 1 
 print('Seja Bem Vindo ao Banco X!') # Menu com todas as funções novas
 
 def menu(): 
