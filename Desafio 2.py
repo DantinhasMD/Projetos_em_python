@@ -18,11 +18,11 @@ def menu():
 # Criar Funções para: Novo usuário, Nova conta, Sacar, Depositar, Consultar extrato e Encerrar 
 def criar_usuario(usuarios):
     cpf = input('Informe seu cpf (apenas o número):')
-    for usuario in usuarios:
-        if usuario[2] == cpf: # Verifica se o CPF já existe
+    for usuario in usuarios: # Usuário vai estar dentro de usuarios
+        if usuario[2] == cpf: # O [2] acessa o terceiro elemento dos parâmetros de usuario (cpf) e verifica se há um igual
             print("CPF já cadastrado.")
             return
-    
+    # Recolhe os argumentos dos parâmetros
     print('''
           Vamos coletar seus dados!
           ''')
@@ -37,7 +37,7 @@ def criar_usuario(usuarios):
     bairro = input('Bairro: ')
     cidade = input('Cidade: ')
     estado = input('Estado: ')
-    
+    # Parâmetros de usuario
     usuario = [nome, data_nascimento, cpf, {'logradouro': logradouro, 'bairro': bairro, 'cidade': cidade, 'estado': estado}] # Lista
     usuarios.append(usuario) # Adicionar o usuário
     
@@ -49,9 +49,9 @@ def criar_usuario(usuarios):
 def criar_conta(AGENCIA, contas, usuarios):
     cpf = input('Informe o CPF do usuário:')
     for usuario in usuarios: 
-        if usuario[2] == cpf: # Este ASSUME que o cpf está em outra posição
-            conta_numero = len(contas) + 1
-            conta = [AGENCIA, conta_numero, cpf]
+        if usuario[2] == cpf: # o cpf realmente existe
+            conta_numero = len(contas) + 1 # Verificar quantas contas existem e somar +1
+            conta = [AGENCIA, conta_numero, cpf] # Parâmetros de conta
             contas.append(conta)
 
         print('''
@@ -71,14 +71,14 @@ def criar_conta(AGENCIA, contas, usuarios):
           ''')
 
 # Função para depositar dinheiro
-def depositar(contas, conta_numero, saldo, /): # Função deposito: positional 
-    conta_numero = int(input('Informe o número da conta: '))
-    saldo = float(input('Informe o valor do depósito: '))
+def depositar(contas, /): # Função deposito: positional 
+    conta_numero = int(input('Informe o número da conta: ')) # Definir aqui, não precisa do parâmetro
+    saldo = float(input('Informe o valor do depósito: ')) # Definir aqui, não precisa do parâmetro
     for conta in contas:
-        if conta[1] == conta_numero: # ASSUMIR outro número de conta
-            if len(conta) == 3:
-                conta.append([])
-            conta[3].append(('depósito', saldo))
+        if conta[1] == conta_numero: # Conferir se o numero da conta informado  esta em conta - elemento dois
+            if len(conta) == 3: # Se conta só tiver 3 elemntos, adiciona uma lista vazia
+                conta.append([]) # Nessa lista colocaremos saldo
+            conta[3].append(('depósito', saldo)) # No quarto elemento, saldo!
             print('''
                   Depósito realizado com sucesso!
                   ''')
@@ -89,15 +89,15 @@ def depositar(contas, conta_numero, saldo, /): # Função deposito: positional
           ''')
 
 # Função para sacar dinheiro
-def sacar(*, contas, conta_numero, saldo, LIMITE_DE_SAQUES): # Função saque: keyword
+def sacar(*, contas, LIMITE_DE_SAQUES): # Função saque: keyword
     conta_numero = int(input('Informe o número da conta: '))
     saldo = float(input('Informe o valor do saque: '))
     saques_realizados = 0
     for conta in contas:
         if conta[1] == conta_numero: 
-            for transacao in conta[3]:
-                if transacao[0] == 'saque':
-                    saques_realizados += 1
+            for transacao in conta[3]: # Parâmetro que criamos - SALDO
+                if transacao[0] == 'saque': # Transacao é apenas o nome que demos para facilitar o entendimento
+                    saques_realizados += 1 # Vai adicionar até ter 3 "saque" dentro de conta[3]
             if saques_realizados >= LIMITE_DE_SAQUES:
                 print('''
                       Limite de saques atingido
@@ -113,24 +113,26 @@ def sacar(*, contas, conta_numero, saldo, LIMITE_DE_SAQUES): # Função saque: k
                   Saque realizado com sucesso!
                   ''')
             return
+    saldo = [transacao] # Elemento de saldo
     print('''
           Conta não encontrada
           ''')
 
 # Função para consultar o extrato
-def consultar_extrato(saldo, /, *, contas, conta_numero, extrato): # Função extrato: positional (saldo) e keyword (extrato)
+def consultar_extrato(saldo, /, *, contas): # Função extrato: positional (saldo) e keyword (extrato)
     conta_numero = int(input('Informe o número da conta: '))
     for conta in contas:
         if conta[1] == conta_numero:
-            for transacao in conta[3:]:
-                if transacao[0] == 'depósito':
-                    saldo += transacao[1]
-                elif transacao[0] == 'saque':
-                    saldo -= transacao[1]
-            if extrato:
-                print("Extrato da conta:")
-                for transacao in conta[3:]:
-                    print(transacao)
+            for transacao in conta[3]:
+                if transacao[0] == 'depósito': # Verificar se o primeiro elemento é um deposito
+                    saldo += transacao[1] # Pega o saldo = 0 e soma
+                elif transacao[0] == 'saque': # Ou um saque
+                    saldo -= transacao[1] # Pega o saldo = 0 e subtrai
+                print(f'''
+                      Extrato da conta: 
+                      {transacao}
+                      ''')
+
             print("Saldo atual: R$", saldo)
             return
     print("Conta não encontrada.")
@@ -142,11 +144,10 @@ def encerrar_programa():
 def main():
     LIMITE_DE_SAQUES = 3
     AGENCIA = "0001"
-    conta_numero = 1
     saldo = 0
-    extrato = ''
     usuarios = []
     contas = []
+    
 
     menu()
     while True:
@@ -165,15 +166,15 @@ def main():
                 continue
             
             elif opcao == "s":
-                sacar(contas=contas, conta_numero=conta_numero, saldo=saldo, LIMITE_DE_SAQUES=LIMITE_DE_SAQUES)
+                sacar(contas=contas, LIMITE_DE_SAQUES=LIMITE_DE_SAQUES)
                 continue
 
             elif opcao == 'c':
-                consultar_extrato(saldo, contas=contas, conta_numero='conta_numero', extrato=extrato)
+                consultar_extrato(saldo, contas=contas)
                 continue
 
             elif opcao == "d":
-                depositar(contas, saldo, extrato)
+                depositar(contas)
                 continue
 
             elif opcao == 'x':
