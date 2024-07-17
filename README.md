@@ -16,7 +16,9 @@
  - Utilizar keyword para a função saque 
  - Utilizar keyword e positional para a função consultar extrato
  
-# Desafio 3: Bootcamp Dio - 
+# Desafio 3: Bootcamp Dio - Exercícios de Funções 
+
+1) Uma empresa de telecomunicações deseja criar uma solução algorítmica que ajude aos seus clientes a escolherem o plano de internet ideal com base em seu consumo mensal de dados. Para a resolução, você pode solicitar ao usuário que insira o seu consumo, sendo este um valor 'float'. Crie uma função chamada recomendar_plano para receber o consumo médio mensal de dados informado pelo cliente, além de utilizar estruturas condicionais para fazer a verificação e retornar o plano adequado.
 
 # Desafio 4: Bootcamp Dio - Continuação do projeto de Sistema Bancário utilizando POO
 
