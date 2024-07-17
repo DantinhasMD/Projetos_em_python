@@ -1,10 +1,11 @@
 # Projetos em Python 
 
- Este repositório foi criado para apresentar meus projetos desenvolvidos com a linguagem python.
+ Este repositório foi criado para apresentar meus projetos desenvolvidos com a linguagem python. Os projetos são de fontes diferentes e por isso estarão todos detalhados e especificados. 
 
 # Desafio 1: Bootcamp Dio - Projeto de Sistema bancário 
 
  Este projeto foi desenvolvido de forma simples, sem utilizar funções ou POO. Nesse sistema bancário tinhamos algumas regras definidas no roteiro do projeto. Sendo elas:
+ - Funções de sacar, depositar e consultar extrato 
  - Até 3 saques, sendo o limite de R$500
 
 # Desafio 2: Bootcamp Dio - Continuação do Projeto de Sistema bancário utilizando Funções
