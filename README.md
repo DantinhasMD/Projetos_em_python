@@ -8,22 +8,24 @@
  - Funções de sacar, depositar e consultar extrato 
  - Até 3 saques, sendo o limite de R$500
 
-# Desafio 2: Bootcamp Dio - Continuação do Projeto de Sistema bancário utilizando Funções
+# Desafio 2: Bootcamp Dio - Continuação do Projeto de Sistema Bancário utilizando funções
 
  Neste projeto tinhamos como objetivo melhorar o sistema bancário anteriormente proposto, utilizando Funções, listas e tuplas. Algumas funções e regras foram adicionadas:
  - Novas funções de Criar um usuário e criar uma conta
- - 
+ - Utilizar positional para a função depósito 
+ - Utilizar keyword para a função saque 
+ - Utilizar keyword e positional para a função consultar extrato
  
-# Desafio 3: 
+# Desafio 3: Bootcamp Dio - 
 
-# Desafio 4: 
+# Desafio 4: Bootcamp Dio - Continuação do projeto de Sistema Bancário utilizando POO
 
-# Desafio 5:
+# Desafio 5: Bootcamp Dio - 
 
-# Projeto 1:
+# Projeto 1: Hashtag Treinamentos - 
 
-# Projeto 2:
+# Projeto 2: Hashtag Treinamentos -
 
-# Projeto 3:
+# Projeto 3: Hashtag Treinamentos - 
 
-# Projeto 4
+# Projeto 4: Hashtag Treinamentos -
