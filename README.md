@@ -1,12 +1,22 @@
 # Projetos em Python 
 
-Este repositório foi criado para apresentar meus projetos desenvolvidos com a linguagem python. Os projetos são de fontes diferentes e por isso estarão todos detalhados e especificados. 
+Este repositório foi criado para apresentar meus projetos desenvolvidos com a linguagem python.
 
 ## Desafio 1: Bootcamp Dio - Projeto de Sistema bancário 🟠
 
- Este projeto foi desenvolvido de forma simples, sem utilizar funções ou POO. Nesse sistema bancário tinhamos algumas regras definidas no roteiro do projeto. Sendo elas:
- - Funções de sacar, depositar e consultar extrato 
- - Até 3 saques, sendo o limite de R$500
+Sistema Bancário - Banco X - Seja bem-vindo ao Banco X! Aqui, você pode realizar operações simples e práticas para gerenciar seu saldo.
+
+Opções Disponíveis:
+[S] - Sacar
+[C] - Consultar extrato
+[D] - Depositar
+[X] - Encerrar
+
+Regras do Sistema:
+Saque: Você pode realizar até 3 saques diários, com um valor máximo de R$500,00 por operação. Caso ultrapasse qualquer um desses limites, a operação será recusada.
+Extrato: Consulte seu saldo a qualquer momento.
+Depósito: Você pode depositar qualquer valor positivo. O saldo será atualizado imediatamente após a operação.
+Lembre-se, se você optar por encerrar, seu saldo será exibido e o sistema será finalizado.
 
 ## Desafio 2: Bootcamp Dio - Continuação do Projeto de Sistema Bancário utilizando funções 🟠
 
