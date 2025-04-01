@@ -1,5 +1,5 @@
-# Criar um Sistema bancário - deposito, saque e extrato
-print('Seja bem-vindo ao Banco X!') 
+# Desafio 1
+print('Seja bem-vindo ao Banco X!')
 
 print('''Opções Disponíveis:
 [S] - Sacar
@@ -17,17 +17,17 @@ while True:
   if opcao not in ['s','c','d','x']:
     print('Digite uma opção válida')
     continue
-  else: 
+  else:
     if opcao == 's':
       saque = float(input("Informe quanto deseja sacar: "))
-      
+
       excedeu_saque = numero_de_saques >= LIMITE_DE_SAQUES
 
       excedeu_saldo = saldo < saque
 
-      if saque > limite_saque: 
+      if saque > limite_saque:
          print('O valor excede o limite da conta. Tente Novamente!')
-         continue 
+         continue
 
       elif excedeu_saldo:
           print('Saldo insuficiente para concluir a operação')
@@ -36,8 +36,8 @@ while True:
       elif excedeu_saque:
           print('O número de saques diários disponíveis já foi ultrapassado. Tente novamente amanhã!')
           continue
-      
-      else: 
+
+      else:
         saldo -= saque
         print(f'O valor de R$ {saque:.2f} foi debitado de sua conta. Extrato final de R$ {saldo:.2f}')
         numero_de_saques += 1
@@ -52,7 +52,7 @@ while True:
       if deposito < 0:
         print("O valor não foi identificado. Por favor, tente novamente!")
         continue
-      
+
       else:
         saldo += deposito
         print(f'Seu extrato atual é de R$ {saldo:.2f}')
@@ -61,5 +61,3 @@ while True:
     else:
       print("Obrigado por utilizar nossos serviços!")
       break
-
-     
