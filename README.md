@@ -42,7 +42,12 @@ Saída: Retorne o plano ideal para o cliente de acordo com o consumo informado n
 
 ### 2. Desafio 2 🔵
 
+
+
 ## Desafio 4: Bootcamp Dio - Continuação do projeto de Sistema Bancário utilizando POO 🟠
+
+O objetivo principal desse código é simular um sistema bancário simples utilizando os conceitos da Programação Orientada a Objetos (POO). Ele permite criar contas bancárias, realizar depósitos, saques e consultar extratos. Tudo isso respeitando regras básicas como limite de saque diário, limite por operação e controle de saldo.
+
 
 # Desafio 5: Bootcamp Dio - 🟠
 
