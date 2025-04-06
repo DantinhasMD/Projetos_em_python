@@ -1,156 +1,201 @@
-# Melhorando código 2 - ATENÇÃO, CÓDIGO COM ERROS
+# Desafio 3 - Tranformção em POO - Definimos as classes do código: Contas, Usuários e Conta Bancária
 
-print('Seja Bem Vindo ao Banco X!')
+class Usuario: #Organizar os Usuarios do Banco
+    usuarios = []
 
-class Usuario:
-    def __init__(self, nome, data_nascimento, cpf, endereco):
+    def __init__(self, nome, cpf, data_nascimento, logradouro, bairro, cidade, estado):
         self.nome = nome
+        self.cpf = cpf
         self.data_nascimento = data_nascimento
-        self.cpf = cpf
-        self.endereco = endereco
+        self.endereco = {
+            "logradouro": logradouro,
+            "bairro": bairro,
+            "cidade": cidade,
+            "estado": estado
+        }
+        Usuario.usuarios.append(self)
 
-class Conta:
-    def __init__(self, agencia, numero, cpf):
-        self.agencia = agencia
-        self.numero = numero
-        self.cpf = cpf
-        self.saldo = 0
-        self.transacoes = []
-
-    def depositar(self, valor):
-        self.saldo += valor
-        self.transacoes.append(('depósito', valor))
-        print('Depósito realizado com sucesso!')
-
-    def sacar(self, valor):
-        if valor > 500:
-            print('Valor de saque excede o limite de R$500')
-            return
-        if self.saldo < valor:
-            print('Saldo insuficiente')
-            return
-        self.saldo -= valor
-        self.transacoes.append(('saque', valor))
-        print('Saque realizado com sucesso!')
-
-    def consultar_extrato(self):
-        print('Extrato da conta:')
-        for transacao in self.transacoes:
-            print(transacao)
-        print('Saldo atual: R$', self.saldo)
-
-class Banco:
-    LIMITE_DE_SAQUES = 3
-    AGENCIA = '0001'
-
-    def __init__(self):
-        self.usuarios = []
-        self.contas = []
-
-    def menu(self):
-        menu = ''' 
-========= MENU =========
-[U] Novo Usuário
-[N] Nova Conta
-[D] Depositar
-[C] Consultar extrato
-[S] Sacar
-[X] Encerrar
-'''
-        print(menu)
-
-    def criar_usuario(self):
-        cpf = input('Informe seu cpf (apenas o número):')
-        for usuario in self.usuarios:
+    @staticmethod
+    def cpf_existe(cpf):
+        """Verifica se o CPF já está cadastrado."""
+        for usuario in Usuario.usuarios:
             if usuario.cpf == cpf:
-                print('CPF já cadastrado.')
-                return
+                return True
+        return False
 
-        print('Vamos coletar seus dados!')
+    @staticmethod
+    def criar_usuario():
+        print('''
+        Você optou por: Criar Usuário!
+        ''')
+        cpf = input('Informe seu CPF (apenas números): ')
+
+        if Usuario.cpf_existe(cpf): #Chmar a função de verificação antes
+            print("\nUsuário já cadastrado!\n")
+            return None
+
+        print("\nUsuário não encontrado! Vamos coletar suas informações:\n")
         nome = input('Nome completo: ')
-        data_nascimento = input('Data de Nascimento (Ex: 01.01.2000: 01012000):')
-        
-        print('Agora vamos coletar suas informações de endereço!')
-        logradouro = input('Logradouro (Ex: Rua Benjamim, 151, apt 18):')
+        data_nascimento = input('Data de Nascimento (Ex: 01.01.2000 -> 01012000): ')
+
+        print('''Vamos coletar suas informações de endereço:''')
+        logradouro = input('Logradouro (Ex: Rua A, 151, apt 18): ')
         bairro = input('Bairro: ')
         cidade = input('Cidade: ')
         estado = input('Estado: ')
 
-        endereco = {'logradouro': logradouro, 'bairro': bairro, 'cidade': cidade, 'estado': estado}
-        usuario = Usuario(nome, data_nascimento, cpf, endereco)
-        self.usuarios.append(usuario)
-        print('Usuário criado com sucesso!')
+        endereco = {"logradouro": logradouro, "bairro": bairro, "cidade": cidade, "estado": estado}
 
-    def criar_conta(self):
-        cpf = input('Informe o CPF do usuário:')
-        for usuario in self.usuarios:
-            if usuario.cpf == cpf:
-                conta_numero = len(self.contas) + 1
-                conta = Conta(self.AGENCIA, conta_numero, cpf)
-                self.contas.append(conta)
-                print('Conta criada com sucesso!')
-                print(f'''
-                      ====== INFORMAÇÕES ======
-                      Número da agência: {self.AGENCIA}
-                      Número da Conta: {conta_numero}
-                      CPF cadastrado: {cpf}
-                      ''')
+        return Usuario(nome, cpf, data_nascimento, logradouro, bairro, cidade, estado)
+
+class Conta: #Organizar as Contas do Banco
+    contas = []
+
+    def __init__(self, numero, cpf, saldo=0):
+        self.numero = numero
+        self.cpf = cpf
+        self.saldo = saldo
+        self.transacoes = []
+        Conta.contas.append(self)
+
+    @staticmethod
+    def criar_conta(AGENCIA="0001"):
+        """Cria uma conta apenas se o CPF já estiver cadastrado."""
+        print("\nVocê optou por: Criar Conta!")
+
+        cpf = input('\nInforme seu cpf (apenas o número):')
+
+        if Usuario.cpf_existe(cpf):
+            num_conta = len(Conta.contas) + 1
+            nova_conta = Conta(numero=num_conta, cpf=cpf)
+            print(f"""\nConta Criada com Sucesso!
+
+                  ====== INFORMAÇÕES ======
+                  Número da agência: {AGENCIA}
+                  Número da Conta: {nova_conta.numero}
+                  CPF cadastrado: {cpf}
+            """)
+            return nova_conta
+        else:
+            print("\nUsuário não encontrado! Cadastre-se primeiro.")
+
+    @staticmethod
+    def verificar_conta(num_conta):
+      for conta in Conta.contas:
+          if conta.numero == num_conta:
+             return conta
+      return None
+
+    @staticmethod
+    def depositar():
+      print('\nVocê optou por: Depositar!')
+      num_conta = int(input('\nInforme o número da conta: '))
+      conta = Conta.verificar_conta(num_conta)
+
+      if conta:
+            valor = float(input('\nInforme o valor do depósito: '))
+            if valor <= 0:
+                print("\nValor inválido para depósito.")
                 return
-        print('Usuário não encontrado.')
+            conta.saldo += valor
+            conta.transacoes.append(("Depósito", valor))
+            print('\nDepósito realizado com sucesso!')
 
-    def depositar(self):
-        conta_numero = int(input('Informe o número da conta: '))
-        valor = float(input('Informe o valor do depósito: '))
-        for conta in self.contas:
-            if conta.numero == conta_numero:
-                conta.depositar(valor)
-                return
-        print('Conta não encontrada.')
+      else:
+          print('\nConta não encontrada.')
 
-    def sacar(self):
-        conta_numero = int(input('Informe o número da conta: '))
-        valor = float(input('Informe o valor do saque: '))
-        for conta in self.contas:
-            if conta.numero == conta_numero:
-                conta.sacar(valor)
-                return
-        print('Conta não encontrada.')
+    @staticmethod
+    def consultar_extrato():
+      print('\nVocê optou por: Consultar Extrato!')
+      num_conta = int(input('\nInforme o número da conta: '))
+      conta = Conta.verificar_conta(num_conta)
 
-    def consultar_extrato(self):
-        conta_numero = int(input('Informe o número da conta: '))
-        for conta in self.contas:
-            if conta.numero == conta_numero:
-                conta.consultar_extrato()
-                return
-        print('Conta não encontrada.')
+      if conta:
+         print(f"\nExtrato da Conta {conta.numero} (CPF: {conta.cpf})")
+         print("-" * 30)
+         for tipo, valor in conta.transacoes:
+             print(f"{tipo}: R$ {valor:.2f}")
+         print("-" * 30)
+         print(f"\nSaldo atual: R$ {conta.saldo:.2f}")
+      else:
+        print("\nConta não encontrada.")
 
-    def encerrar_programa(self):
-        print('Programa encerrado.')
+    @staticmethod
+    def sacar(LIMITE_DE_SAQUES=3, limite_saque=500):
+      print('\nVocê optou por: Sacar!')
+      num_conta = int(input('\nInforme o número da conta: '))
+      conta = Conta.verificar_conta(num_conta)
 
-    def iniciar(self):
-        self.menu()
+      if conta:
+        saques_realizados = sum(1 for transacao in conta.transacoes if transacao[0]== 'Saque')
+        if saques_realizados >= LIMITE_DE_SAQUES:
+           print('\nLimite de Saques Diários Atingidos!')
+           return
+
+        valor = float(input('\nInforme o valor do saque: '))
+
+        if valor <= 0:
+            print('\nValor inválido.')
+            return
+
+        if valor > limite_saque:
+           print('\nSaque maior do que o limite permitido')
+           return
+
+        if valor > conta.saldo:
+            print('\nSaldo insuficiente para realizar o saque.')
+            return
+
+        conta.saldo -= valor
+        conta.transacoes.append(('Saque', valor))
+        print('\nSaque realizado com sucesso!')
+
+      else:
+        print('\nConta não encontrada!')
+
+class Banco: 
+
+    @staticmethod
+    def menu():
+      print('\nSeja Bem-Vindo ao Banco X')
+      menu = '''========= MENU =========
+      [U] Novo Usuário
+      [N] Nova Conta
+      [D] Depositar
+      [C] Consultar extrato
+      [S] Sacar
+      [X] Encerrar'''
+      return print(menu)
+
+    @staticmethod
+    def encerrar_programa():
+      return print("\nPrograma encerrado.")
+
+    @staticmethod
+    def main():
+        Banco.menu()
+
+        opcoes = {
+            'u': lambda: Usuario.criar_usuario(),
+            'n': lambda: Conta.criar_conta(),
+            's': lambda: Conta.sacar(),
+            'c': lambda: Conta.consultar_extrato(),
+            'd': lambda: Conta.depositar(),
+            'x': Banco.encerrar_programa
+        }
+
         while True:
-            opcao = input('Qual operação deseja realizar: ').lower()
-            if opcao not in ['u','n','s','c','d','x']:
-                print('Esta não é uma opção válida, tente novamente!')
-                continue
+            opcao = input("\nQual operação deseja realizar: ")
 
-            if opcao == 'u':
-                self.criar_usuario()
-            elif opcao == 'n':
-                self.criar_conta()
-            elif opcao == 's':
-                self.sacar()
-            elif opcao == 'c':
-                self.consultar_extrato()
-            elif opcao == 'd':
-                self.depositar()
-            elif opcao == 'x':
-                self.encerrar_programa()
-                break
+            if opcao in opcoes:
+                if opcao == 'x':
+                    opcoes[opcao]()
+                    break
+                else:
+                    opcoes[opcao]()
+            else:
+                print('\nEsta não é uma opção válida, tente novamente!')
 
-        print('Obrigado por utilizar nossos serviços!')
+        print("\nObrigado por utilizar nossos serviços!")
 
-# Inicializar o banco e iniciar o programa
-banco = Banco()
-banco.iniciar()
+Banco.main()
