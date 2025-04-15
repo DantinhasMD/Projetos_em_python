@@ -66,7 +66,7 @@ def criar_conta(usuarios, contas, AGENCIA):
           ''')
           return
 
-      
+
   print('''
   Usuário não Encontrado!
   ''')
@@ -86,7 +86,7 @@ def depositar(contas, /):
                   ''')
         return
 
-    
+
   print('''
   Conta não encontrada
   ''')
@@ -103,34 +103,34 @@ def sacar(*, contas, LIMITE_DE_SAQUES, limite_saque):
           Limite de Saques Diários Atingidos!
           ''')
           return
-            
+
       saldo = float(input('Informe o valor do saque: '))
-            
+
       if saldo > limite_saque:
           print('''
           Saque maior do que o limite permitido
           ''')
           return
-            
+
       conta[3].append(('saque', saldo))
       print('''
        Saque realizado com sucesso!
        ''')
       return
-  
+
   print('''
   Conta não encontrada!
   ''')
-    
+
 def consultar_extrato(saldo, *, contas):
     conta_numero = int(input('Informe o número da conta: '))
     for conta in contas:
         if conta[1] == conta_numero:
             for transacao in conta[3]:
-                if transacao[0] == 'depósito': 
-                    saldo += transacao[1] 
-                elif transacao[0] == 'saque': 
-                    saldo -= transacao[1] 
+                if transacao[0] == 'depósito':
+                    saldo += transacao[1]
+                elif transacao[0] == 'saque':
+                    saldo -= transacao[1]
                 print(f'''
                       Extrato da conta:
                       {transacao}
@@ -168,10 +168,10 @@ def main():
 
         if opcao in opcoes:
             if opcao == 'x':
-                opcoes[opcao]() 
+                opcoes[opcao]()
                 break
             else:
-                opcoes[opcao]()  
+                opcoes[opcao]()
         else:
             print('Esta não é uma opção válida, tente novamente!')
 
