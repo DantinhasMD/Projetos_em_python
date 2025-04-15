@@ -153,7 +153,7 @@ class Conta: #Organizar as Contas do Banco
       else:
         print('\nConta não encontrada!')
 
-class Banco: 
+class Banco:
 
     @staticmethod
     def menu():
